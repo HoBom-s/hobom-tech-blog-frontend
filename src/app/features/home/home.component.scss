@@ -1,0 +1,96 @@
+.hero {
+  background:
+    radial-gradient(
+        1200px 400px at 10% -20%,
+        rgba(99, 102, 241, 0.25),
+        transparent 60%
+    ),
+    radial-gradient(
+        900px 300px at 90% -10%,
+        rgba(236, 72, 153, 0.22),
+        transparent 60%
+    );
+  padding: 64px 16px 32px;
+  text-align: center;
+}
+.hero .title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px 0;
+  font-size: clamp(28px, 4vw, 44px);
+}
+.hero .subtitle {
+  opacity: 0.85;
+  margin: 0 auto;
+  max-width: 780px;
+  font-size: clamp(14px, 1.8vw, 18px);
+  line-height: 1.7;
+}
+.container {
+  max-width: 1040px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.card {
+  border-radius: 14px;
+  overflow: hidden;
+}
+.emoji {
+  font-size: 40px;
+  line-height: 1;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  margin-right: 12px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 16px 0 16px;
+  gap: 12px;
+}
+.title-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.date {
+  opacity: 0.7;
+  font-size: 13px;
+}
+.chips {
+  padding: 0 16px 16px 16px;
+}
+.content {
+  padding: 0 16px 16px 16px;
+  min-height: 64px;
+}
+
+/* Load more */
+.loadmore {
+  display: flex;
+  justify-content: center;
+  margin: 28px 0 40px;
+}
+
+/* Footer CTA */
+.cta {
+  margin: 40px auto 80px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* Dark tweaks */
+html.dark .emoji {
+  background: rgba(255, 255, 255, 0.06);
+}
