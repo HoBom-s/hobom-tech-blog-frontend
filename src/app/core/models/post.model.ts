@@ -12,3 +12,7 @@ export interface ArticleType {
   nextCursor?: string | null;
   hasMore: boolean;
 }
+
+export interface ArticleDetail {
+  contents: string;
+}

@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { ArticleType } from "../models/post.model";
+import { ArticleDetail, ArticleType } from "../models/post.model";
 
 export abstract class PostsPort {
   abstract listCursor(params?: {
@@ -8,4 +8,6 @@ export abstract class PostsPort {
     tag?: string;
     q?: string;
   }): Observable<ArticleType>;
+
+  abstract getDetail(params: { pageId: string }): Observable<ArticleDetail>;
 }

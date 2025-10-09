@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, map } from "rxjs";
-import { Article, ArticleType } from "../models/post.model";
+import { Article, ArticleDetail, ArticleType } from "../models/post.model";
 import { PostsPort } from "../ports/post.port";
 
 function normalizeArticle(a: Article): Article {
@@ -48,5 +48,13 @@ export class PostsService implements PostsPort {
           }),
         ),
       );
+  }
+
+  getDetail(params: { pageId: string }): Observable<ArticleDetail> {
+    const headers = new HttpHeaders({ Accept: "*/*" });
+
+    return this.http.get<ArticleDetail>(`/hobom/tech/${params.pageId}`, {
+      headers,
+    });
   }
 }
