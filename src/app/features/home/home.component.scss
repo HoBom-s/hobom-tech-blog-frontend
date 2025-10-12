@@ -4,8 +4,44 @@
   padding: 12px 16px;
 }
 
+.spinner-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.spinner-inline {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  opacity: 0.9;
+}
+
 .grid {
   display: grid;
-  gap: 18px;
+  gap: 12px;
   grid-template-columns: 1fr;
+}
+
+.social {
+  padding: 8px 0;
+
+  a[mat-list-item] {
+    margin: 0;
+  }
+
+  .mat-mdc-list-item {
+    border-radius: 12px;
+
+    .mat-mdc-list-item-icon { opacity: .8; }
+    .end { margin-left: auto; opacity: .6; }
+  }
+}
+
+.social .social-item {
+  align-items: center;
+  gap: 4px;
+  height: 34px;
+  width: 150px;
 }

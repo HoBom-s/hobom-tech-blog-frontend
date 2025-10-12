@@ -11,6 +11,11 @@ import { PostsService } from "../../core/services/post.service";
 import { PostsPort } from "../../core/ports/post.port";
 import { ArticleCardComponent } from "./arcitle-card.component";
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
+import {
+  MatActionList,
+  MatListItem,
+  MatListItemTitle,
+} from "@angular/material/list";
 
 @Component({
   standalone: true,
@@ -25,23 +30,94 @@ import { MatTab, MatTabGroup } from "@angular/material/tabs";
     ArticleCardComponent,
     MatTabGroup,
     MatTab,
+    MatActionList,
+    MatListItem,
+    MatListItemTitle,
   ],
   providers: [{ provide: PostsPort, useClass: PostsService }],
   styleUrls: ["./home.component.scss"],
   template: `
     <main class="container">
       <mat-tab-group
+        [selectedIndex]="selectedIndex()"
+        (selectedIndexChange)="onIndexChange($event)"
         mat-stretch-tabs="false"
         mat-align-tabs="start"
         style="margin-bottom: 16px"
       >
-        <mat-tab label="Articles" />
+        <mat-tab label="Profile"></mat-tab>
+        <mat-tab label="Articles"></mat-tab>
       </mat-tab-group>
-      @if (articles().length) {
-        <section class="grid">
-          @for (article of articles(); track article.id) {
-            <app-article-card [article]="article"></app-article-card>
-          }
+      @if (selectedIndex() === 1) {
+        @if (!articles().length && loading()) {
+          <div class="spinner-wrap">
+            <mat-progress-spinner
+              mode="indeterminate"
+              [diameter]="40"
+              aria-label="Loading"
+            ></mat-progress-spinner>
+          </div>
+        }
+
+        @if (articles().length) {
+          <section class="grid">
+            @for (article of articles(); track article.id) {
+              <app-article-card [article]="article"></app-article-card>
+            }
+          </section>
+        }
+      } @else if (selectedIndex() === 0) {
+        <section class="profile">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title style="font-weight: bold;"
+                >JunHo Kim</mat-card-title
+              >
+              <mat-card-subtitle>Software Engineer · Korea</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                Product-driven Software Engineer with hands-on experience across
+                B2B SaaS, EdTech, and digital banking domains. Proven track
+                record in architecting, building, and scaling robust
+                systems—from WebRTC-powered learning platforms to
+                mission-critical loan approval engines—balancing performance,
+                maintainability, and user experience. Skilled in driving
+                modernization initiatives through Clean Architecture, TDD, and
+                scalable frontend patterns. Committed to continuous learning
+                through personal projects and cross-functional collaboration.
+                Passionate about bridging product vision with technical
+                execution to deliver lasting impact in fast-paced environments.
+              </p>
+              <mat-chip-set>
+                <mat-chip>React</mat-chip>
+                <mat-chip>NestJS</mat-chip>
+                <mat-chip>Spring Boot</mat-chip>
+              </mat-chip-set>
+            </mat-card-content>
+            <mat-action-list class="social">
+              <a
+                mat-list-item
+                class="social-item"
+                href="https://github.com/foxmon"
+                target="_blank"
+                rel="noopener"
+              >
+                <mat-icon matListItemIcon>code</mat-icon>
+                <div matListItemTitle>GitHub</div>
+              </a>
+              <a
+                mat-list-item
+                class="social-item"
+                href="https://www.linkedin.com/in/%EC%A4%80%ED%98%B8-%EA%B9%80-b76685254/"
+                target="_blank"
+                rel="noopener"
+              >
+                <mat-icon matListItemIcon>work</mat-icon>
+                <div matListItemTitle>LinkedIn</div>
+              </a>
+            </mat-action-list>
+          </mat-card>
         </section>
       }
     </main>
@@ -50,6 +126,7 @@ import { MatTab, MatTabGroup } from "@angular/material/tabs";
 export class HomeComponent {
   private postsPort = inject(PostsPort);
 
+  selectedIndex = signal<number>(0);
   articles = signal<Article[]>([]);
   cursor = signal<string | null | undefined>(null);
   hasMore = signal<boolean>(false);
@@ -57,6 +134,10 @@ export class HomeComponent {
 
   ngOnInit() {
     this.fetch();
+  }
+
+  onIndexChange(index: number) {
+    this.selectedIndex.set(index);
   }
 
   private fetch(cursor?: string | null) {
