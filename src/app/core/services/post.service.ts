@@ -38,7 +38,10 @@ export class PostsService implements PostsPort {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
     return this.http
-      .get<ArticleType>("/hobom/tech/articles", { params: httpParams, headers })
+      .get<ArticleType>("/api/v1/hobom/tech/articles", {
+        params: httpParams,
+        headers,
+      })
       .pipe(
         map(
           (res): ArticleType => ({
@@ -53,7 +56,7 @@ export class PostsService implements PostsPort {
   getDetail(params: { pageId: string }): Observable<ArticleDetail> {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
-    return this.http.get<ArticleDetail>(`/hobom/tech/${params.pageId}`, {
+    return this.http.get<ArticleDetail>(`/api/v1/hobom/tech/${params.pageId}`, {
       headers,
     });
   }

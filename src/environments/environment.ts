@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiBaseUrl: "http://ishisha.iptime.org:8081/hobom-internal/api/v1",
+  production: true,
+  apiBaseUrl: "/hobom-internal",
 } as const;
