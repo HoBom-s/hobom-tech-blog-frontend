@@ -56,8 +56,16 @@ export class PostsService implements PostsPort {
   getDetail(params: { pageId: string }): Observable<ArticleDetail> {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
-    return this.http.get<ArticleDetail>(`/api/v1/hobom/tech/${params.pageId}`, {
-      headers,
-    });
+    return this.http
+      .get<ArticleDetail>(`/api/v1/hobom/tech/${params.pageId}`, { headers })
+      .pipe(
+        map(
+          (res): ArticleDetail => ({
+            title: res.title ?? "",
+            tags: res.tags ?? [],
+            contents: res.contents ?? "",
+          }),
+        ),
+      );
   }
 }

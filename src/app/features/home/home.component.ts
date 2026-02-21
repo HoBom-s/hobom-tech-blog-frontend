@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -6,10 +6,9 @@ import { MatCardModule } from "@angular/material/card";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
-import { Article, ArticleType } from "../../core/models/post.model";
-import { PostsService } from "../../core/services/post.service";
+import { Article } from "../../core/models/post.model";
 import { PostsPort } from "../../core/ports/post.port";
-import { ArticleCardComponent } from "./arcitle-card.component";
+import { ArticleCardComponent } from "./article-card.component";
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import {
   MatActionList,
@@ -34,7 +33,6 @@ import {
     MatListItem,
     MatListItemTitle,
   ],
-  providers: [{ provide: PostsPort, useClass: PostsService }],
   styleUrls: ["./home.component.scss"],
   template: `
     <main class="container">
@@ -43,7 +41,7 @@ import {
         (selectedIndexChange)="onIndexChange($event)"
         mat-stretch-tabs="false"
         mat-align-tabs="start"
-        style="margin-bottom: 16px"
+        class="tab-group"
       >
         <mat-tab label="Profile"></mat-tab>
         <mat-tab label="Articles"></mat-tab>
@@ -70,9 +68,7 @@ import {
         <section class="profile">
           <mat-card>
             <mat-card-header>
-              <mat-card-title style="font-weight: bold;"
-                >JunHo Kim</mat-card-title
-              >
+              <mat-card-title class="profile-name">JunHo Kim</mat-card-title>
               <mat-card-subtitle>Software Engineer · Korea</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
@@ -123,7 +119,7 @@ import {
     </main>
   `,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private postsPort = inject(PostsPort);
 
   selectedIndex = signal<number>(0);
@@ -143,7 +139,7 @@ export class HomeComponent {
   private fetch(cursor?: string | null) {
     this.loading.set(true);
     this.postsPort.listCursor({ cursor, limit: 20 }).subscribe({
-      next: (res: ArticleType) => {
+      next: (res) => {
         this.articles.set([...this.articles(), ...res.articles]);
         this.cursor.set(res.nextCursor ?? null);
         this.hasMore.set(Boolean(res.hasMore));

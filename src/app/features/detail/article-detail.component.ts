@@ -1,8 +1,16 @@
-import { Component, inject, signal, ViewEncapsulation } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+  signal,
+  ViewEncapsulation,
+} from "@angular/core";
+import { ActivatedRoute, RouterLink } from "@angular/router";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { switchMap, EMPTY } from "rxjs";
 import { MarkdownComponent } from "ngx-markdown";
 import { PostsPort } from "../../core/ports/post.port";
-import { ROUTE_PATHS } from "../../core/router/route-paths";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
@@ -21,45 +29,38 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
           ></mat-progress-spinner>
         </div>
       } @else {
-        <a
-          [href]="ROUTE_PATHS.MAIN.HOME"
-          style="
-            color:rgba(0,0,0,.55);
-            text-decoration:underline;
-            text-underline-offset:2px;
-            cursor: pointer;
-            margin-bottom: 28px;
-        "
-        >
-          이전으로 돌아가기
-        </a>
-        <h1 class="title" style="margin-bottom: 32px;">{{ title() }}</h1>
+        <a class="back-link" routerLink="/">이전으로 돌아가기</a>
+        <h1 class="title">{{ title() }}</h1>
         <markdown class="content" [data]="markdownContents()"></markdown>
       }
     </main>
   `,
-  imports: [MarkdownComponent, MatProgressSpinnerModule],
+  imports: [MarkdownComponent, MatProgressSpinnerModule, RouterLink],
 })
-export class ArticleDetailComponent {
+export class ArticleDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private postsPort = inject(PostsPort);
+  private destroyRef = inject(DestroyRef);
 
-  loading = signal<boolean>(false);
-  title = signal<string>("");
-  pageId = signal<string>("");
-  markdownContents = signal<string>("");
+  loading = signal(false);
+  title = signal("");
+  markdownContents = signal("");
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe((map) => {
-      this.loading.set(true);
-      const title = map.get("title");
-      if (title != null) this.title.set(title);
+    this.route.queryParamMap
+      .pipe(
+        switchMap((map) => {
+          const pageId = map.get("pageId");
+          if (pageId == null) return EMPTY;
 
-      const pageId = map.get("pageId");
-      if (pageId == null) return;
-
-      this.postsPort.getDetail({ pageId }).subscribe({
+          this.loading.set(true);
+          return this.postsPort.getDetail({ pageId });
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
         next: (res) => {
+          this.title.set(res.title);
           this.markdownContents.set(res.contents);
           this.loading.set(false);
         },
@@ -67,8 +68,5 @@ export class ArticleDetailComponent {
           this.loading.set(false);
         },
       });
-    });
   }
-
-  protected readonly ROUTE_PATHS = ROUTE_PATHS;
 }

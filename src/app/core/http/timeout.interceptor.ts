@@ -1,5 +1,7 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 import { timeout } from "rxjs";
 
+const REQUEST_TIMEOUT_MS = 8_000;
+
 export const timeoutInterceptor: HttpInterceptorFn = (req, next) =>
-  next(req).pipe(timeout(8001));
+  next(req).pipe(timeout(REQUEST_TIMEOUT_MS));

@@ -14,5 +14,7 @@ export interface ArticleType {
 }
 
 export interface ArticleDetail {
+  title: string;
+  tags: string[];
   contents: string;
 }

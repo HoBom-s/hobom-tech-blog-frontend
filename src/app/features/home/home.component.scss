@@ -1,7 +1,7 @@
 .container {
-  max-width: 800px;
-  margin: 24px auto;
-  padding: 12px 16px;
+  max-width: 720px;
+  margin: 32px auto;
+  padding: 0 20px;
 }
 
 .spinner-wrap {
@@ -11,16 +11,17 @@
   min-height: 220px;
 }
 
-.spinner-inline {
-  display: flex;
-  justify-content: center;
-  padding: 16px 0;
-  opacity: 0.9;
+.tab-group {
+  margin-bottom: 24px;
+}
+
+.profile-name {
+  font-weight: 600;
 }
 
 .grid {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   grid-template-columns: 1fr;
 }
 
@@ -32,10 +33,11 @@
   }
 
   .mat-mdc-list-item {
-    border-radius: 12px;
+    border-radius: 8px;
 
-    .mat-mdc-list-item-icon { opacity: .8; }
-    .end { margin-left: auto; opacity: .6; }
+    .mat-mdc-list-item-icon {
+      opacity: 0.6;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { HttpInterceptorFn, HttpErrorResponse } from "@angular/common/http";
-import { retry, timer } from "rxjs";
+import { retry, throwError, timer } from "rxjs";
 
 export const retryInterceptor: HttpInterceptorFn = (req, next) =>
   next(req).pipe(
@@ -11,8 +11,8 @@ export const retryInterceptor: HttpInterceptorFn = (req, next) =>
           err instanceof HttpErrorResponse &&
           err.status >= 500;
         return retriable
-          ? timer(Math.min(500 * Math.pow(2, attempt), 3000))
-          : timer(0);
+          ? timer(Math.min(500 * 2 ** attempt, 3000))
+          : throwError(() => err);
       },
     }),
   );

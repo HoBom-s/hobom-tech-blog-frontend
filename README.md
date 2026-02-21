@@ -6,42 +6,42 @@ A lightweight, Angular‑based tech blog. Built with Angular (Material 3), deplo
 
 ## Table of contents
 
-* [Features](#features)
-* [Tech stack](#tech-stack)
-* [Quick start](#quick-start)
-* [Project structure](#project-structure)
-* [Environments configuration](#environments--configuration)
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Quick start](#quick-start)
+- [Project structure](#project-structure)
+- [Environments configuration](#environments--configuration)
+  - [1) Angular environments](#1-angular-environments)
+  - [2) Local dev proxy (`proxy.conf.json`)](#2-local-dev-proxy-proxyconfjson)
+  - [3) Production on Vercel (`vercel.json` rewrites)](#3-production-on-vercel-verceljson-rewrites)
 
-  * [1) Angular environments](#1-angular-environments)
-  * [2) Local dev proxy (`proxy.conf.json`)](#2-local-dev-proxy-proxyconfjson)
-  * [3) Production on Vercel (`vercel.json` rewrites)](#3-production-on-vercel-verceljson-rewrites)
-* [Favicon assets](#favicon--assets)
-* [Styling Material 3 theme tips](#styling--material-3-theme-tips)
-* [Build analyze bundles](#build--analyze-bundles)
-* [Routing on Vercel (404 fix)](#routing-on-vercel-404-fix)
-* [NPM scripts](#npm-scripts)
-* [Troubleshooting](#troubleshooting)
-* [License](#license)
+- [Favicon assets](#favicon--assets)
+- [Styling Material 3 theme tips](#styling--material-3-theme-tips)
+- [Build analyze bundles](#build--analyze-bundles)
+- [Routing on Vercel (404 fix)](#routing-on-vercel-404-fix)
+- [NPM scripts](#npm-scripts)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
 ---
 
 ## Features
 
-* Angular + Angular Material (MD3) with CSS custom properties
-* Clean separation of **local** and **production** API endpoints
-* **Local dev proxy** to bypass CORS while developing
-* **Vercel rewrites** to avoid browser mixed‑content (HTTPS → HTTP) issues
-* SPA routing fallback for Vercel
-* Build budget guidance and bundle analysis
+- Angular + Angular Material (MD3) with CSS custom properties
+- Clean separation of **local** and **production** API endpoints
+- **Local dev proxy** to bypass CORS while developing
+- **Vercel rewrites** to avoid browser mixed‑content (HTTPS → HTTP) issues
+- SPA routing fallback for Vercel
+- Build budget guidance and bundle analysis
 
 ## Tech stack
 
-* **Angular** (v18+)
-* **Angular Material 3** (theming via CSS vars)
-* **RxJS**
-* **Vercel** (static SPA deployment)
+- **Angular** (v18+)
+- **Angular Material 3** (theming via CSS vars)
+- **RxJS**
+- **Vercel** (static SPA deployment)
 
-> *No SSR by default. If later needed, migrate to Angular SSR/Prerender.*
+> _No SSR by default. If later needed, migrate to Angular SSR/Prerender._
 
 ---
 
@@ -49,8 +49,8 @@ A lightweight, Angular‑based tech blog. Built with Angular (Material 3), deplo
 
 ### Prerequisites
 
-* Node.js 18+ (recommend LTS)
-* npm (or pnpm/yarn)
+- Node.js 18+ (recommend LTS)
+- npm (or pnpm/yarn)
 
 ### Install
 
@@ -75,11 +75,11 @@ The production build is emitted to `dist/hobom-tech-blog/`.
 
 ### Deploy (Vercel)
 
-* Connect the repo in Vercel dashboard
-* Framework preset: **Angular**
-* Build command: `npm run build`
-* Output directory: `dist/hobom-tech-blog`
-* Include `vercel.json` at repo root (see below)
+- Connect the repo in Vercel dashboard
+- Framework preset: **Angular**
+- Build command: `npm run build`
+- Output directory: `dist/hobom-tech-blog`
+- Include `vercel.json` at repo root (see below)
 
 ---
 
@@ -114,30 +114,32 @@ Create **`src/environments/environment.ts`** and **`src/environments/environment
 export const environment = {
   production: false,
   // Local dev calls should go through the proxy: use relative /api
-  apiBaseUrl: '/api/hobom/tech',
+  apiBaseUrl: "/api/hobom/tech",
 };
 ```
 
 *A simple service example:*c
 
 ```ts
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '../environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { environment } from "../environments/environment";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class PostsService {
   constructor(private http: HttpClient) {}
 
   list(limit = 20) {
-    return this.http.get(`${environment.apiBaseUrl}/articles`, { params: { limit } });
+    return this.http.get(`${environment.apiBaseUrl}/articles`, {
+      params: { limit },
+    });
   }
 }
 ```
 
 ### 2) Local dev proxy (`proxy.conf.json`)
 
-Use a proxy to call your backend over HTTP during `ng serve` *without* CORS errors:
+Use a proxy to call your backend over HTTP during `ng serve` _without_ CORS errors:
 
 **`proxy.conf.json`**
 
@@ -188,14 +190,20 @@ In production, browsers require HTTPS for pages served over HTTPS. If your backe
 ```json
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "http://ishisha.iptime.org:8081/hobom-internal/api/v1/$1" },
+    {
+      "source": "/api/(.*)",
+      "destination": "http://ishisha.iptime.org:8081/hobom-internal/api/v1/$1"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     }
   ]
@@ -210,13 +218,13 @@ If you have an **HTTPS** API domain, you can instead set `environment.prod.ts` t
 
 ## Favicon & assets
 
-* Replace `src/favicon.ico` with your icon or update the link in `src/index.html`:
+- Replace `src/favicon.ico` with your icon or update the link in `src/index.html`:
 
 ```html
 <link rel="icon" type="image/x-icon" href="assets/icons/hobom.ico" />
 ```
 
-* Add social share images under `src/assets/` (e.g., `og-image.png`).
+- Add social share images under `src/assets/` (e.g., `og-image.png`).
 
 ---
 
@@ -230,8 +238,15 @@ Angular Material 3 exposes CSS vars like `--mat-sys-surface`. To apply a light g
   /* --mat-sys-surface: #f7f7f7; */
 }
 
-html, body, app-root { height: 100%; }
-body { margin: 0; background: var(--mat-sys-surface); }
+html,
+body,
+app-root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--mat-sys-surface);
+}
 
 /* Sometimes using container surfaces feels nicer */
 .app-surface {
@@ -297,11 +312,11 @@ For client‑side routes (e.g., `/articles/123`), Vercel must serve `index.html`
 
 ## Troubleshooting
 
-* **Mixed Content error**: Ensure API calls use `/api/...` and Vercel rewrites to your HTTP backend. Or use a proper **HTTPS** backend.
-* **404 on hard refresh**: Ensure the SPA fallback rewrite to `/index.html` exists in `vercel.json`.
-* **Favicon not updating**: Bust cache by renaming the file (e.g., `favicon-v2.ico`) and updating `index.html`, or hard‑reload the browser.
-* **CORS in local dev**: You must run via `ng serve` with `proxy.conf.json`, and call the API via relative `/api/...` URLs.
-* **Large bundles**: Use lazy loading, remove unused polyfills, and analyze with `source-map-explorer`.
+- **Mixed Content error**: Ensure API calls use `/api/...` and Vercel rewrites to your HTTP backend. Or use a proper **HTTPS** backend.
+- **404 on hard refresh**: Ensure the SPA fallback rewrite to `/index.html` exists in `vercel.json`.
+- **Favicon not updating**: Bust cache by renaming the file (e.g., `favicon-v2.ico`) and updating `index.html`, or hard‑reload the browser.
+- **CORS in local dev**: You must run via `ng serve` with `proxy.conf.json`, and call the API via relative `/api/...` URLs.
+- **Large bundles**: Use lazy loading, remove unused polyfills, and analyze with `source-map-explorer`.
 
 ---
 
