@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
@@ -121,6 +122,8 @@ import {
 })
 export class HomeComponent implements OnInit {
   private postsPort = inject(PostsPort);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   selectedIndex = signal<number>(0);
   articles = signal<Article[]>([]);
@@ -129,11 +132,17 @@ export class HomeComponent implements OnInit {
   loading = signal<boolean>(false);
 
   ngOnInit() {
+    const tab = Number(this.route.snapshot.queryParamMap.get("tab")) || 0;
+    this.selectedIndex.set(tab);
     this.fetch();
   }
 
   onIndexChange(index: number) {
     this.selectedIndex.set(index);
+    this.router.navigate([], {
+      queryParams: { tab: index },
+      replaceUrl: true,
+    });
   }
 
   private fetch(cursor?: string | null) {
