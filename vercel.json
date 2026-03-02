@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/hobom-internal/(.*)",
-      "destination": "http://ishisha.iptime.org:9090/hobom-api-gateway/hobom-internal/$1"
+      "destination": "https://hobom-system.com/hobom-api-gateway/hobom-internal/$1"
     },
     {
       "source": "/(.*)",
