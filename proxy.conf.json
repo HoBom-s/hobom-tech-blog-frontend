@@ -1,6 +1,6 @@
 {
   "/hobom-internal": {
-    "target": "http://ishisha.iptime.org:8081",
+    "target": "http://ishisha.iptime.org:9090/hobom-api-gateway",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "warn"
