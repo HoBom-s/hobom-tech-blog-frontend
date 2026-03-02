@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/hobom-internal/(.*)",
-      "destination": "https://hobom-system.com/hobom-api-gateway/hobom-internal/$1"
+      "destination": "/api/proxy/hobom-internal/$1"
     },
     {
       "source": "/(.*)",
