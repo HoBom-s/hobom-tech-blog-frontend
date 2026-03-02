@@ -1,12 +1,21 @@
 export default async function handler(req, res) {
-  const { url } = req;
+  const reqUrl = new URL(req.url, `http://${req.headers.host}`);
+  const proxyPath = reqUrl.searchParams.get('path') || '';
+  const query = req.url.includes('&') ? '?' + req.url.split('&').slice(1).join('&') : '';
 
-  // /api/proxy/hobom-internal/api/v1/... → /hobom-api-gateway/hobom-internal/api/v1/...
-  const path = url.replace(/^\/api\/proxy/, '');
-  const target = `${process.env.HOBOM_API_GATEWAY_URL}/hobom-api-gateway${path}`;
+  // Reconstruct query params from original request (exclude 'path' param)
+  const params = new URLSearchParams(reqUrl.search);
+  params.delete('path');
+  const qs = params.toString() ? `?${params.toString()}` : '';
 
-  const headers = { ...req.headers };
-  delete headers.host;
+  const target = `${process.env.HOBOM_API_GATEWAY_URL}/hobom-api-gateway${proxyPath}${qs}`;
+
+  const headers = {};
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (!['host', 'connection'].includes(key.toLowerCase())) {
+      headers[key] = value;
+    }
+  }
   headers['x-hobom-api-key'] = process.env.HOBOM_API_GATEWAY_KEY;
 
   try {
