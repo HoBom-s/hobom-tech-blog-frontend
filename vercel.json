@@ -7,7 +7,7 @@
   },
   "rewrites": [
     {
-      "source": "/hobom-internal/(.*)",
+      "source": "/hobom-internal/api/v1/(.*)",
       "destination": "/api/proxy?path=/hobom-internal/$1"
     },
     {
