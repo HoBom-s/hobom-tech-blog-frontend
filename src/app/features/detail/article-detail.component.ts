@@ -29,7 +29,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
           ></mat-progress-spinner>
         </div>
       } @else {
-        <a class="back-link" routerLink="/">이전으로 돌아가기</a>
+        <a class="back-link" routerLink="/" [queryParams]="{ tab: 1 }">이전으로 돌아가기</a>
         <h1 class="title">{{ title() }}</h1>
         <markdown class="content" [data]="markdownContents()"></markdown>
       }
