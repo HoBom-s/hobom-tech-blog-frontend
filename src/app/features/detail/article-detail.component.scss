@@ -1,108 +1,228 @@
-.spinner-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 220px;
+.detail-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
 }
 
-.container {
-  max-width: 720px;
-  margin: 32px auto;
-  padding: 0 20px;
-  font-size: 15px;
-  line-height: 1.8;
-  color: #2a2a2a;
+// ── Nav ──
+.nav {
+  margin-bottom: 32px;
 }
 
 .back-link {
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
   color: #888;
   text-decoration: none;
   transition: color 0.15s ease;
 
   &:hover {
-    color: #444;
+    color: #333;
+  }
+
+  svg {
+    flex-shrink: 0;
   }
 }
 
-.container .title {
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
-  margin: 20px 0 32px;
-  color: #1a1a1a;
+// ── Spinner ──
+.spinner-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
 }
 
-.container .content {
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #e0e0e0;
+  border-top-color: #666;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Article Header ──
+.article-header {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #eee;
+}
+
+.article-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+  color: #111;
+  margin: 0 0 16px;
+}
+
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+// ── Article Body ──
+.article-body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.content {
   h1 {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    margin: 2em 0 0.6em;
+    letter-spacing: -0.02em;
+    margin: 2.5em 0 0.8em;
+    color: #111;
   }
 
   h2 {
-    font-size: 19px;
+    font-size: 20px;
     font-weight: 600;
-    margin: 1.6em 0 0.5em;
+    letter-spacing: -0.01em;
+    margin: 2em 0 0.6em;
+    color: #222;
   }
 
   h3 {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 600;
-    margin: 1.4em 0 0.4em;
+    margin: 1.6em 0 0.5em;
+    color: #333;
   }
 
   p,
-  li,
-  blockquote {
+  li {
     font-size: inherit;
     line-height: 1.8;
+    margin-bottom: 0.8em;
   }
 
   blockquote {
-    border-left: 3px solid #ddd;
-    margin: 1.2em 0;
-    padding: 0.4em 0 0.4em 16px;
-    color: #555;
+    border-left: 3px solid #e0e0e0;
+    margin: 1.5em 0;
+    padding: 0.5em 0 0.5em 20px;
+    color: #666;
+    font-style: italic;
   }
 
   code:not(pre code) {
     background: #f3f3f3;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 4px;
-    font-size: 0.9em;
+    font-size: 0.88em;
+    color: #d14;
   }
 
   pre {
-    background: #f8f8f8;
+    background: #f8f9fa;
     border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 16px;
+    border-radius: 8px;
+    padding: 20px;
     overflow-x: auto;
-    font-size: 13px;
+    font-size: 13.5px;
     line-height: 1.6;
+    margin: 1.5em 0;
   }
 
   img {
     max-width: 100%;
-    border-radius: 6px;
+    border-radius: 8px;
+    margin: 1em 0;
   }
 
   a {
-    color: #444;
+    color: #222;
+    font-weight: 500;
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-underline-offset: 3px;
+    text-decoration-color: #ccc;
+    transition: text-decoration-color 0.15s ease;
 
     &:hover {
-      color: #111;
+      text-decoration-color: #222;
     }
   }
 
   hr {
     border: none;
     border-top: 1px solid #eee;
-    margin: 2em 0;
+    margin: 2.5em 0;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5em;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+
+    th,
+    td {
+      border: 1px solid #eee;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+    }
+  }
+}
+
+// ── Responsive ──
+@media (max-width: 600px) {
+  .detail-page {
+    padding: 32px 16px 60px;
+  }
+
+  .article-title {
+    font-size: 24px;
+  }
+
+  .article-body {
+    font-size: 15px;
+  }
+
+  .content {
+    h1 {
+      font-size: 21px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    pre {
+      padding: 14px;
+      font-size: 12.5px;
+    }
   }
 }

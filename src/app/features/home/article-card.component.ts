@@ -1,6 +1,5 @@
 import { Component, inject, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatCardModule } from "@angular/material/card";
 import { Article } from "../../core/models/post.model";
 import { Router } from "@angular/router";
 import { ROUTE_PATHS } from "../../core/router/route-paths";
@@ -8,27 +7,23 @@ import { ROUTE_PATHS } from "../../core/router/route-paths";
 @Component({
   standalone: true,
   selector: "app-article-card",
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule],
   styleUrls: ["./article-card.component.scss"],
   template: `
-    <mat-card class="card mat-elevation-z2" (click)="handleCardClick()">
-      <div class="header">
-        <div class="emoji">{{ article().emoji || "📝" }}</div>
-        <div class="meta">
-          <div class="top-row">
-            <span class="mat-title-medium title">{{ article().title }}</span>
-            <span class="date">{{ article().date | date: "mediumDate" }}</span>
+    <article class="card" (click)="handleCardClick()">
+      <div class="card-emoji">{{ article().emoji || "📝" }}</div>
+      <div class="card-body">
+        <h3 class="card-title">{{ article().title }}</h3>
+        <time class="card-date">{{ article().date | date: "yyyy.MM.dd" }}</time>
+        @if (article().tags.length) {
+          <div class="card-tags">
+            @for (tag of article().tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
           </div>
-          @if (article().tags.length) {
-            <div class="tag-list">
-              @for (tag of article().tags; track tag) {
-                <span class="tag-badge">{{ tag }}</span>
-              }
-            </div>
-          }
-        </div>
+        }
       </div>
-    </mat-card>
+    </article>
   `,
 })
 export class ArticleCardComponent {
