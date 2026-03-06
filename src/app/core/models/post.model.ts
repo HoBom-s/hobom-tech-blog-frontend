@@ -1,3 +1,10 @@
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  timestamp: number;
+  items: T;
+}
+
 export interface Article {
   id: string;
   title: string;

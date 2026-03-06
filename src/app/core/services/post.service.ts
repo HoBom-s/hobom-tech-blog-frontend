@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, map } from "rxjs";
-import { Article, ArticleDetail, ArticleType } from "../models/post.model";
+import { ApiResponse, Article, ArticleDetail, ArticleType } from "../models/post.model";
 import { PostsPort } from "../ports/post.port";
 
 function normalizeArticle(a: Article): Article {
@@ -38,16 +38,16 @@ export class PostsService implements PostsPort {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
     return this.http
-      .get<ArticleType>("/api/v1/hobom/tech/articles", {
+      .get<ApiResponse<ArticleType>>("/api/v1/hobom/tech/articles", {
         params: httpParams,
         headers,
       })
       .pipe(
         map(
           (res): ArticleType => ({
-            articles: (res.articles ?? []).map(normalizeArticle),
-            nextCursor: res.nextCursor ?? null,
-            hasMore: Boolean(res.hasMore),
+            articles: (res.items.articles ?? []).map(normalizeArticle),
+            nextCursor: res.items.nextCursor ?? null,
+            hasMore: Boolean(res.items.hasMore),
           }),
         ),
       );
@@ -57,13 +57,13 @@ export class PostsService implements PostsPort {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
     return this.http
-      .get<ArticleDetail>(`/api/v1/hobom/tech/${params.pageId}`, { headers })
+      .get<ApiResponse<ArticleDetail>>(`/api/v1/hobom/tech/${params.pageId}`, { headers })
       .pipe(
         map(
           (res): ArticleDetail => ({
-            title: res.title ?? "",
-            tags: res.tags ?? [],
-            contents: res.contents ?? "",
+            title: res.items.title ?? "",
+            tags: res.items.tags ?? [],
+            contents: res.items.contents ?? "",
           }),
         ),
       );
