@@ -46,7 +46,7 @@ import { ArticleCardComponent } from "./article-card.component";
         </div>
       </section>
 
-      <section class="about">
+      <section class="card about">
         <p>
           B2B SaaS, EdTech, 인터넷 은행 도메인에서 실무 경험을 쌓아온 소프트웨어 엔지니어입니다.
           WebRTC 기반 학습 플랫폼부터 대출 심사 엔진까지, 성능과 유지보수성, 사용자 경험의 균형을 고민하며 시스템을 설계하고 만들어 왔습니다.
@@ -69,7 +69,7 @@ import { ArticleCardComponent } from "./article-card.component";
         </div>
       </section>
 
-      <section class="articles">
+      <section class="card articles">
         <h2 class="section-title">Articles</h2>
         @if (!articles().length && loading()) {
           <div class="spinner-wrap">

@@ -1,12 +1,22 @@
 .page {
-  max-width: 640px;
+  max-width: 680px;
   margin: 0 auto;
-  padding: 80px 24px 120px;
+  padding: 60px 24px 96px;
+}
+
+// ── Material Card ──
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 // ── Hero ──
 .hero {
-  margin-bottom: 48px;
+  margin-bottom: 28px;
 }
 
 .hero-inner {
@@ -17,7 +27,7 @@
 }
 
 .name {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: #111;
@@ -26,9 +36,9 @@
 }
 
 .role {
-  font-size: 16px;
+  font-size: 15px;
   color: #666;
-  margin: 6px 0 0;
+  margin: 5px 0 0;
 }
 
 .social-links {
@@ -40,7 +50,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 7px 15px;
   font-size: 13px;
   font-weight: 500;
   color: #444;
@@ -61,18 +71,16 @@
 
 // ── About ──
 .about {
-  margin-bottom: 64px;
-  padding-bottom: 64px;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 28px;
 
   p {
     font-size: 15px;
-    line-height: 1.9;
+    line-height: 1.85;
     color: #444;
-    margin: 0 0 16px;
+    margin: 0 0 14px;
 
     &:last-of-type {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
   }
 
@@ -93,31 +101,32 @@
 .tech-stack {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
 }
 
 .chip {
   display: inline-block;
-  padding: 4px 14px;
+  padding: 3px 13px;
   font-size: 12px;
   font-weight: 500;
   color: #555;
-  background: #f5f5f5;
+  background: #f0f0f0;
   border-radius: 6px;
   letter-spacing: 0.01em;
 }
 
 // ── Articles ──
 .articles {
-  margin-top: 0;
+  padding-top: 28px;
+  padding-bottom: 8px;
 }
 
 .section-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: #111;
-  margin: 0 0 32px;
+  margin: 0 0 20px;
 }
 
 .article-list {
@@ -129,7 +138,7 @@
 .spinner-wrap {
   display: flex;
   justify-content: center;
-  padding: 64px 0;
+  padding: 48px 0;
 }
 
 .spinner {
@@ -150,11 +159,16 @@
 // ── Responsive ──
 @media (max-width: 600px) {
   .page {
-    padding: 56px 20px 80px;
+    padding: 40px 16px 72px;
+  }
+
+  .card {
+    padding: 24px 20px;
+    border-radius: 10px;
   }
 
   .hero {
-    margin-bottom: 36px;
+    margin-bottom: 20px;
   }
 
   .hero-inner {
@@ -163,21 +177,20 @@
   }
 
   .name {
-    font-size: 26px;
+    font-size: 25px;
   }
 
   .social-links {
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   .social-btn {
-    padding: 6px 14px;
+    padding: 6px 13px;
     font-size: 12px;
   }
 
   .about {
-    margin-bottom: 48px;
-    padding-bottom: 48px;
+    margin-bottom: 20px;
   }
 
   .about p {
@@ -185,7 +198,7 @@
   }
 
   .section-title {
-    font-size: 18px;
-    margin-bottom: 24px;
+    font-size: 17px;
+    margin-bottom: 16px;
   }
 }
