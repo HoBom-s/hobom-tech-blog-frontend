@@ -1,21 +1,73 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="utf-8" />
-    <title>HBTB</title>
+    <title>JunHo Kim — Tech Blog</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO -->
+    <meta
+      name="description"
+      content="소프트웨어 엔지니어 김준호의 기술 블로그. React, NestJS, Spring Boot, 시스템 설계, 아키텍처에 대한 글을 씁니다."
+    />
+    <meta name="author" content="JunHo Kim" />
+    <meta
+      name="keywords"
+      content="소프트웨어 엔지니어, React, NestJS, Spring Boot, Kotlin, 기술 블로그, 시스템 설계, Clean Architecture"
+    />
+    <link rel="canonical" href="https://hobom-tech-blog.vercel.app/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="JunHo Kim — Tech Blog" />
+    <meta
+      property="og:description"
+      content="소프트웨어 엔지니어 김준호의 기술 블로그. 시스템 설계, 아키텍처, 프론트엔드/백엔드 개발에 대한 글을 씁니다."
+    />
+    <meta property="og:url" content="https://hobom-tech-blog.vercel.app/" />
+    <meta property="og:site_name" content="JunHo Kim Tech Blog" />
+    <meta property="og:locale" content="ko_KR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="JunHo Kim — Tech Blog" />
+    <meta
+      name="twitter:description"
+      content="소프트웨어 엔지니어 김준호의 기술 블로그."
+    />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "JunHo Kim Tech Blog",
+        "url": "https://hobom-tech-blog.vercel.app",
+        "description": "소프트웨어 엔지니어 김준호의 기술 블로그",
+        "author": {
+          "@type": "Person",
+          "name": "JunHo Kim",
+          "url": "https://github.com/foxmon",
+          "jobTitle": "Software Engineer"
+        },
+        "inLanguage": "ko"
+      }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
     <app-root></app-root>
   </body>
 </html>

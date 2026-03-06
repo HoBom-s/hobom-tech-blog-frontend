@@ -18,15 +18,15 @@ import { PostsPort } from "../../core/ports/post.port";
   encapsulation: ViewEncapsulation.None,
   styleUrls: ["./article-detail.component.scss"],
   template: `
-    <main class="detail-page">
+    <main id="main-content" class="detail-page" role="main">
       @if (loading()) {
-        <div class="spinner-wrap">
+        <div class="spinner-wrap" role="status" aria-label="글을 불러오는 중">
           <div class="spinner"></div>
         </div>
       } @else {
-        <nav class="nav">
-          <a class="back-link" routerLink="/">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <nav class="nav" aria-label="페이지 이동">
+          <a class="back-link" routerLink="/" aria-label="홈으로 돌아가기">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
             </svg>
             Back
@@ -36,16 +36,16 @@ import { PostsPort } from "../../core/ports/post.port";
           <header class="article-header">
             <h1 class="article-title">{{ title() }}</h1>
             @if (tags().length) {
-              <div class="article-tags">
+              <div class="article-tags" role="list" aria-label="태그">
                 @for (tag of tags(); track tag) {
-                  <span class="tag">{{ tag }}</span>
+                  <span class="tag" role="listitem">{{ tag }}</span>
                 }
               </div>
             }
           </header>
-          <div class="article-body">
+          <section class="article-body" aria-label="본문">
             <markdown class="content" [data]="markdownContents()"></markdown>
-          </div>
+          </section>
         </article>
       }
     </main>
