@@ -55,7 +55,7 @@ import { ArticleCardComponent } from "./article-card.component";
         </p>
         <p>
           개인 프로젝트
-          <a href="https://hobom-system.com" target="_blank" rel="noopener noreferrer">HoBom</a>을
+          <a href="https://github.com/HoBom-s" target="_blank" rel="noopener noreferrer">HoBom</a>을
           통해 Hexagonal Architecture, gRPC, Kafka, Redis 기반의 이벤트 드리븐 시스템을
           직접 설계·구축·운영하고 있으며, 단일 서버 위에서 6개의 서비스와 CI/CD 파이프라인까지
           관리하는 1인 인프라 운영 경험을 쌓고 있습니다.
