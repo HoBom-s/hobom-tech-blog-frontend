@@ -9,8 +9,7 @@
     "test": "ng test",
     "lint": "eslint . --ext .ts,.html",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "serve:ssr:hobom-tech-blog-frontend": "node dist/hobom-tech-blog-frontend/server/server.mjs"
+    "format:check": "prettier --check ."
   },
   "private": true,
   "dependencies": {
