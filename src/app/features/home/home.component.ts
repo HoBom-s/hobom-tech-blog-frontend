@@ -17,7 +17,7 @@ import { ArticleCardComponent } from "./article-card.component";
       <header class="hero" aria-label="프로필">
         <div class="hero-inner">
           <div class="hero-text">
-            <h1 class="name">Software Engineer</h1>
+            <h1 class="name">HoBom</h1>
           </div>
           <nav class="social-links" aria-label="소셜 링크">
             <a
