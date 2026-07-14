@@ -35,7 +35,7 @@ export class PostsService implements PostsPort {
     const httpParams = new HttpParams({
       fromObject: {
         ...(params.cursor ? { cursor: params.cursor } : {}),
-        ...(params.limit ? { limit: String(params.limit) } : {}),
+        ...(params.limit ? { pageSize: String(params.limit) } : {}),
         ...(params.tag ? { tag: params.tag } : {}),
         ...(params.q ? { q: params.q } : {}),
       },
