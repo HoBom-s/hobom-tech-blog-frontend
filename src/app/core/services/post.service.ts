@@ -1,7 +1,12 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, map } from "rxjs";
-import { ApiResponse, Article, ArticleDetail, ArticleType } from "../models/post.model";
+import {
+  ApiResponse,
+  Article,
+  ArticleDetail,
+  ArticleType,
+} from "../models/post.model";
 import { PostsPort } from "../ports/post.port";
 
 function normalizeArticle(a: Article): Article {
@@ -53,11 +58,13 @@ export class PostsService implements PostsPort {
       );
   }
 
-  getDetail(params: { pageId: string }): Observable<ArticleDetail> {
+  getDetail(params: { slug: string }): Observable<ArticleDetail> {
     const headers = new HttpHeaders({ Accept: "*/*" });
 
     return this.http
-      .get<ApiResponse<ArticleDetail>>(`/api/v1/hobom/tech/${params.pageId}`, { headers })
+      .get<
+        ApiResponse<ArticleDetail>
+      >(`/api/v1/hobom/tech/articles/${encodeURIComponent(params.slug)}`, { headers })
       .pipe(
         map(
           (res): ArticleDetail => ({

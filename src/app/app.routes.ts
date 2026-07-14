@@ -9,8 +9,7 @@ export const routes: Routes = [
       import("./features/home/home.component").then((m) => m.HomeComponent),
   },
   {
-    path: ROUTE_PATHS.ARTICLES.ROOT,
-    pathMatch: "full",
+    path: ROUTE_PATHS.ARTICLES.DETAIL,
     loadComponent: () =>
       import("./features/detail/article-detail.component").then(
         (m) => m.ArticleDetailComponent,

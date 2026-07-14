@@ -8,9 +8,25 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { switchMap, EMPTY } from "rxjs";
+import { switchMap, EMPTY, map } from "rxjs";
 import { MarkdownComponent } from "ngx-markdown";
 import { PostsPort } from "../../core/ports/post.port";
+import { SeoService } from "../../core/seo/seo.service";
+import { environment } from "../../../environments/environment";
+
+const EXCERPT_MAX = 155;
+
+function toExcerpt(markdown: string, max = EXCERPT_MAX): string {
+  const text = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_\`~|-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
+}
 
 @Component({
   standalone: true,
@@ -26,8 +42,16 @@ import { PostsPort } from "../../core/ports/post.port";
       } @else {
         <nav class="nav" aria-label="페이지 이동">
           <a class="back-link" routerLink="/" aria-label="홈으로 돌아가기">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-              <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+              />
             </svg>
             Back
           </a>
@@ -56,6 +80,7 @@ export class ArticleDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private postsPort = inject(PostsPort);
   private destroyRef = inject(DestroyRef);
+  private seo = inject(SeoService);
 
   loading = signal(false);
   title = signal("");
@@ -63,23 +88,32 @@ export class ArticleDetailComponent implements OnInit {
   markdownContents = signal("");
 
   ngOnInit() {
-    this.route.queryParamMap
+    this.route.paramMap
       .pipe(
-        switchMap((map) => {
-          const pageId = map.get("pageId");
-          if (pageId == null) return EMPTY;
+        switchMap((params) => {
+          const slug = params.get("slug");
+          if (slug == null) return EMPTY;
 
           this.loading.set(true);
-          return this.postsPort.getDetail({ pageId });
+          return this.postsPort
+            .getDetail({ slug })
+            .pipe(map((res) => ({ res, slug })));
         }),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
-        next: (res) => {
+        next: ({ res, slug }) => {
           this.title.set(res.title);
           this.tags.set(res.tags ?? []);
           this.markdownContents.set(res.contents);
           this.loading.set(false);
+
+          this.seo.setArticle({
+            title: res.title,
+            description: toExcerpt(res.contents),
+            url: `${environment.siteUrl}/articles/${slug}`,
+            tags: res.tags ?? [],
+          });
         },
         error: () => {
           this.loading.set(false);

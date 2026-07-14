@@ -9,5 +9,5 @@ export abstract class PostsPort {
     q?: string;
   }): Observable<ArticleType>;
 
-  abstract getDetail(params: { pageId: string }): Observable<ArticleDetail>;
+  abstract getDetail(params: { slug: string }): Observable<ArticleDetail>;
 }

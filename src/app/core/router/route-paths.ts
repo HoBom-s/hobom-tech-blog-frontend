@@ -4,5 +4,6 @@ export const ROUTE_PATHS = {
   },
   ARTICLES: {
     ROOT: "articles",
+    DETAIL: "articles/:slug",
   },
 } as const;

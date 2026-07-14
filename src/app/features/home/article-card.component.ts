@@ -14,14 +14,21 @@ import { ROUTE_PATHS } from "../../core/router/route-paths";
       class="card"
       tabindex="0"
       role="link"
-      [attr.aria-label]="article().title + ' — ' + (article().date | date: 'yyyy.MM.dd')"
+      [attr.aria-label]="
+        article().title + ' — ' + (article().date | date: 'yyyy.MM.dd')
+      "
       (click)="handleCardClick()"
       (keydown.enter)="handleCardClick()"
     >
-      <div class="card-emoji" aria-hidden="true">{{ article().emoji || "📝" }}</div>
+      <div class="card-emoji" aria-hidden="true">
+        {{ article().emoji || "📝" }}
+      </div>
       <div class="card-body">
         <h3 class="card-title">{{ article().title }}</h3>
-        <time class="card-date" [attr.datetime]="article().date | date: 'yyyy-MM-dd'">
+        <time
+          class="card-date"
+          [attr.datetime]="article().date | date: 'yyyy-MM-dd'"
+        >
           {{ article().date | date: "yyyy.MM.dd" }}
         </time>
         @if (article().tags.length) {
@@ -42,8 +49,6 @@ export class ArticleCardComponent {
 
   handleCardClick() {
     const a = this.article();
-    this.router.navigate([ROUTE_PATHS.ARTICLES.ROOT], {
-      queryParams: { pageId: a.id },
-    });
+    this.router.navigate([ROUTE_PATHS.ARTICLES.ROOT, a.slug]);
   }
 }
