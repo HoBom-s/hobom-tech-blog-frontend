@@ -17,6 +17,10 @@ import { timeoutInterceptor } from "./core/http/timeout.interceptor";
 import { errorInterceptor } from "./core/http/error.interceptor";
 import { PostsPort } from "./core/ports/post.port";
 import { PostsService } from "./core/services/post.service";
+import {
+  provideClientHydration,
+  withEventReplay,
+} from "@angular/platform-browser";
 
 marked.use(
   markedHighlight({
@@ -52,5 +56,6 @@ export const appConfig: ApplicationConfig = {
         breaks: false,
       },
     },
+    provideClientHydration(withEventReplay()),
   ],
 };
