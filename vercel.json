@@ -12,7 +12,7 @@
   "rewrites": [
     {
       "source": "/hobom-internal/api/v1/(.*)",
-      "destination": "/api/proxy?path=/hobom-internal/api/v1/$1"
+      "destination": "/api/proxy?path=/hobom-internal/$1"
     },
     {
       "source": "/sitemap.xml",
